@@ -28,5 +28,7 @@ Backwards button, forward button, history, cookies, and more.
 
 <details>
 <summary>Contribute (PLEASE)</summary>
-GitHub repo is in [here](https://github.com/CoolGuy158-Git/Water-Fish)
+
+GitHub repo is [here](https://github.com/CoolGuy158-Git/Water-Fish).
+
 </details>
