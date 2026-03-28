@@ -6,6 +6,7 @@ import random
 from tkinter import messagebox
 import subprocess
 import platform
+import threading
 
 data = {}
 
@@ -223,16 +224,12 @@ error_generic = """
   """
 def checkonline(url):
     try:
-        requests.head(url, timeout=1)
+        requests.head(url, timeout=3) # Slows down the browser a bit but ehh better safe than sorry ig
         return True
     except:
         return False
-def load(url): # hehe now I can throw errors at your face
-    global currentframe
-
+def loadnoworelse(url): # hehe now I can throw errors at your face
     try:
-        url = url.strip()
-
         if not url.startswith("http"):
             url = "https://wiby.me/?q=" + urllib.parse.quote(url)
 
@@ -242,8 +239,13 @@ def load(url): # hehe now I can throw errors at your face
 
         currentframe.load_website(url)
 
-    except Exception:
+    except Exception as e:
         currentframe.load_html(error_generic)
+        print(e)
+
+def load(url):
+    threading.Thread(target=loadnoworelse, args=(url,), daemon=True).start()
+
 def searchfor():
     if not search.get().strip():
         messagebox.showwarning(title="Error", message="Entry empty") # Windows messagebox jumpscare
@@ -263,3 +265,4 @@ searchbutton.config(command=searchfor)
 gohome.config(command=gohomefunc)
 newtab()
 root.mainloop()
+
