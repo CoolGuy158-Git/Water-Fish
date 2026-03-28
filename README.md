@@ -1,4 +1,4 @@
-# [WaterFish](info.html)
+# [WaterFish | One web, one world, one flow](info.html)
 
 ---
 
