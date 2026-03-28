@@ -42,7 +42,7 @@ GitHub repo is [here](https://github.com/CoolGuy158-Git/Water-Fish).
 - [ ] Add back/forward navigation
 - [ ] Improve search handling
 - [ ] Better settings system
-## Hard
+### Hard
 - [ ] Custom rendering engine (replace tkinterweb)
 - [ ] Add sandboxing for pages
 - [ ] Improve performance
