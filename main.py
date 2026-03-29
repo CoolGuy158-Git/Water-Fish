@@ -21,7 +21,7 @@ root = tk.Tk()
 root.geometry("1000x700")
 root.title("Water Fish")
 root.iconbitmap("waterfish.ico")
-textchoice = ['The buggiest browser ever.', 'Is this even a browser?', 'I will feed you Ai. -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
+textchoice = ['The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
 def homepage():
     text = random.choice(textchoice)
     return f"""
@@ -65,8 +65,9 @@ tabs = []
 current = None
 currentframe = None
 tabbtnn = []
-max = 20
+maxtabs = 20
 def switch(index):
+    search.delete(0, tk.END)
     global current, currentframe
 
     for t in tabs:
@@ -80,7 +81,7 @@ def switch(index):
 def newtab(url=None):
     global currentframe
 
-    if len(tabs) >= max:
+    if len(tabs) >= maxtabs:
         messagebox.showinfo(title="Max tabs", message="Im to lazy to add a scroll thing") # Don't worry im planning to add it
         return
 
@@ -118,7 +119,7 @@ def remtab(index):
         btn.config(text=f"Tab {i + 1}",
                    command=lambda x=i: switch(x))
 
-    current = max(0, index - 1)
+    current = max(0, min(index, len(tabs) - 1))
     switch(current)
 
 def customize(): # Originally I wanted a tkinter top level to appear so you can edit the settings, but I was too lazy so enjoy editing settings via notepad hehe
@@ -224,14 +225,16 @@ error_generic = """
   """
 def checkonline(url):
     try:
-        requests.head(url, timeout=3) # Slows down the browser a bit but ehh better safe than sorry ig
+        requests.get(url, timeout=3) # Slows down the browser a bit but ehh better safe than sorry ig
         return True
     except:
         return False
 def loadnoworelse(url): # hehe now I can throw errors at your face
     try:
-        if not url.startswith("http"):
-            url = "https://wiby.me/?q=" + urllib.parse.quote(url)
+        url = url.strip()
+
+        if not url.startswith(("http://", "https://")):
+            url = "https://" + url
 
         if not checkonline(url):
             currentframe.load_html(error_internet)
@@ -247,12 +250,22 @@ def load(url):
     threading.Thread(target=loadnoworelse, args=(url,), daemon=True).start()
 
 def searchfor():
-    if not search.get().strip():
-        messagebox.showwarning(title="Error", message="Entry empty") # Windows messagebox jumpscare
+    raw = search.get().strip()
+
+    if not raw:
+        messagebox.showwarning(title="Error", message="Entry empty")
         return
-    query = urllib.parse.quote(search.get())
-    url = f"https://wiby.me/?q={query}"
-    load(url)
+
+    if raw.startswith(("http://", "https://")):
+        load(raw)
+
+    elif "." in raw:
+        load("https://" + raw)
+
+    else:
+        query = urllib.parse.quote(raw)
+        url = f"https://wiby.me/?q={query}"
+        load(url)
 
 search.bind('<Return>', lambda event: searchfor())
 
@@ -265,4 +278,3 @@ searchbutton.config(command=searchfor)
 gohome.config(command=gohomefunc)
 newtab()
 root.mainloop()
-
