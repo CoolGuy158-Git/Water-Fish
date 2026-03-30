@@ -59,13 +59,13 @@ def homepage():
   </center>
   </body>
 </html>"""
-
+# I may need to add something that lets the user pick their own fav websites to add here
 tabs = []
 current = None
 currentframe = None
 tabbtnn = []
 maxtabs = 20
-def switch(index):
+def switch(index): # This function handles tab switching as well as highlighting current tab
     search.delete(0, tk.END)
     global current, currentframe
     for t in tabs:
@@ -151,7 +151,7 @@ def checkditor(proc):
         refreshsettings()
 
 
-def refreshsettings():
+def refreshsettings(): # This function triggers whenever the user exits the notepad, thus updating all the settings, well all except for hightabcol you have to open a new tab for that because well tabbtn is a local variable
     global data
     try:
         newdata = {}
@@ -171,7 +171,7 @@ def refreshsettings():
     except Exception as e:
         print(e)
 
-def imalwaysright(event): # idc what you say this is the best func name
+def imalwaysright(event): # idc what you say this is the best func name, ok but really though this activates customize
     customize()
 
 colorthing = tk.Frame(root, width=1000, height=100, bg=data['color'])
