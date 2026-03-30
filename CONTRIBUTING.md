@@ -38,6 +38,8 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 - [ ] Add sandboxing for pages
 - [ ] Improve performance
 
+***New tasks will appear once one is accomplished***
+
 ---
 
 ## Coding Guidelines
