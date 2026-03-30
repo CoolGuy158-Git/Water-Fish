@@ -29,29 +29,7 @@ Backwards button, forward button, history, cookies, and more.
 <details>
 <summary>Contribute (PLEASE)</summary>
 
-GitHub repo is [here](https://github.com/CoolGuy158-Git/Water-Fish).
+CONTRIBUTING.md is [here](CONTRIBUTING.md).
 
 </details>
-
-## TODO
-### Easy
-- [ ] Fix UI bugs
-- [ ] Improve Error pages
-- [ ] Add loading indicator
-### Medium
-- [ ] Add back/forward navigation
-- [ ] Improve search handling
-- [ ] Better settings system
-### Hard
-- [ ] Custom rendering engine (replace tkinterweb)
-- [ ] Add sandboxing for pages
-- [ ] Improve performance
-
----
-## Contributing
-
-Want to help? Pick something from the TODO list!  
-Open a pull request or suggest ideas in issues!
-
-***New Ones Will Appear Once One Of Them gets Accomplished***
 
