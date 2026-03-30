@@ -1,2 +1,3 @@
 color = gray
 tabcol = darkgray
+hightabcol = blue

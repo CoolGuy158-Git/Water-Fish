@@ -28,7 +28,7 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 ### Easy
 - [ ] Improve UI
 - [ ] Improve Error pages
-- [ ] Add loading indicator
+- [ ] Add useful comments (Do not delete existing ones)
 ### Medium
 - [ ] Add back/forward navigation
 - [ ] Improve search handling

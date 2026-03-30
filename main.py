@@ -10,12 +10,11 @@ import threading
 
 data = {}
 
-with open('settings.txt', 'r') as file:
+with open('settings.txt', 'r') as file: # Hmmm
     for line in file:
         if '=' in line:
             name, value = line.strip().split('=')
             data[name.strip()] = value.strip()
-
 
 root = tk.Tk()
 root.geometry("1000x700")
@@ -23,12 +22,12 @@ root.title("Water Fish")
 root.iconbitmap("waterfish.ico")
 textchoice = ['The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
 def homepage():
-    text = random.choice(textchoice)
+    text = random.choice(textchoice) # Wait this actually worked?
     return f"""
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WaterFish</title>
+    <title>Homepage</title>
   </head>
   <body bgcolor="lightblue">
   <center>
@@ -69,15 +68,16 @@ maxtabs = 20
 def switch(index):
     search.delete(0, tk.END)
     global current, currentframe
-
     for t in tabs:
         t.pack_forget()
-
     tabs[index].pack(fill="both", expand=True)
-
     current = index
     currentframe = tabs[index]
-    curtab.config(text=f"Current Tab: {current + 1}")
+    for i, tabbtn in enumerate(tabbtnn):
+        if i == current:
+            tabbtn.config(bg=data['hightabcol']) # High cholesterol
+        else:
+            tabbtn.config(bg="SystemButtonFace")
 def newtab(url=None):
     global currentframe
 
@@ -104,7 +104,7 @@ def addtab(index):
     )
     btn.pack(side="left")
     tabbtnn.append(btn)
-def remtab(index):
+def remtab(index): # removes your ex- i mean unused tabs
     global current
 
     if len(tabs) <= 1:
@@ -116,11 +116,23 @@ def remtab(index):
     tabbtnn.pop(index)
 
     for i, btn in enumerate(tabbtnn):
-        btn.config(text=f"Tab {i + 1}",
-                   command=lambda x=i: switch(x))
+        btn.config(text=f"Tab {i + 1}",command=lambda x=i: switch(x))
 
     current = max(0, min(index, len(tabs) - 1))
     switch(current)
+
+def updatetab(): # Updates tab title
+    tabtitle = currentframe.title
+    global current
+    if current is None or currentframe is None:
+        return
+    try:
+        if tabtitle:
+            tabbtnn[current].config(text=tabtitle)
+            root.title(tabtitle)
+    except:
+        pass
+    root.after(1000, updatetab)
 
 def customize(): # Originally I wanted a tkinter top level to appear so you can edit the settings, but I was too lazy so enjoy editing settings via notepad hehe
     if platform.system() == "Windows":
@@ -153,8 +165,8 @@ def refreshsettings():
 
         colorthing.config(bg=data['color'])
         searchtab.config(bg=data['color'])
-        curtab.config(bg=data['color'])
         tabbar.config(bg=data['tabcol'])
+
 
     except Exception as e:
         print(e)
@@ -169,12 +181,6 @@ colorthing.bind("<Button-3>", imalwaysright)
 
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
-
-curtabvar = tk.StringVar()
-curtabvar.set("0")
-
-curtab = tk.Label(searchtab, text="Current Tab: 0", bg=data['color'])
-curtab.pack(side='left', padx=(0,5))
 
 gohome = tk.Button(searchtab, text="Home")
 gohome.pack(side='left')
@@ -195,6 +201,7 @@ rembtn = tk.Button(tabbar, text="-", command=lambda: remtab(current if current i
 rembtn.pack(side="right")
 
 # TODO make an offline game!!!
+# Although we have to find out how to make a game that's html only...unless someone helps me make a renderer which can be expanded upon to support css and js (wink)
 error_internet = f"""
 <!DOCTYPE html>
 <html>
@@ -208,6 +215,7 @@ error_internet = f"""
   <p>If error persists, file an issue on the <a href='https://github.com/CoolGuy158-Git/Water-Fish'>official github repo</a></p>
   <p>your feedback truly matters</p>
   </body>
+  </html>
   """
 error_generic = """
 <!DOCTYPE html>
@@ -222,9 +230,25 @@ error_generic = """
   <p>If error persists, file an issue on the <a href='https://github.com/CoolGuy158-Git/Water-Fish'>official github repo</a></p>
   <p>your feedback truly matters</p>
   </body>
+  </html>
   """
+
+loading = """
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Searching</title>
+  </head>
+  <body>
+  <hr>
+  <h1>Searching...</h1>
+  <hr>
+  </body>
+  </html>
+"""
 def checkonline(url):
     try:
+        currentframe.load_html(loading)
         requests.get(url, timeout=3) # Slows down the browser a bit but ehh better safe than sorry ig
         return True
     except:
@@ -264,7 +288,7 @@ def searchfor():
 
     else:
         query = urllib.parse.quote(raw)
-        url = f"https://wiby.me/?q={query}"
+        url = f"https://wiby.me/?q={query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
         load(url)
 
 search.bind('<Return>', lambda event: searchfor())
@@ -273,8 +297,8 @@ def gohomefunc(): # Yea go home vro
     if currentframe:
         currentframe.load_html(homepage())
     search.delete(0, tk.END)
-
 searchbutton.config(command=searchfor)
 gohome.config(command=gohomefunc)
 newtab()
+updatetab()
 root.mainloop()
