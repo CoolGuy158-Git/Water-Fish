@@ -1,3 +1,4 @@
 color = gray
 tabcol = darkgray
-hightabcol = blue
+hightabcol = lightblue
+devopts = True

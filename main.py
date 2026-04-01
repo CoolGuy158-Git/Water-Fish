@@ -1,3 +1,12 @@
+"""
+Water-Fish
+----
+A simple but privacy focused web browser
+Meant as an alternative to other browsers
+Project currently on Beta
+Contribute by trying out the program, writing code for it, and writing issues regarding bugs and such
+Under General Public License Version 3
+"""
 import tkinter as tk
 from tkinterweb import HtmlFrame # Planning to make my own renderer but for know imma stick with tkinterweb
 import urllib.parse
@@ -7,6 +16,8 @@ from tkinter import messagebox
 import subprocess
 import platform
 import threading
+import os
+import sys
 
 data = {}
 
@@ -65,6 +76,7 @@ current = None
 currentframe = None
 tabbtnn = []
 maxtabs = 20
+
 def switch(index): # This function handles tab switching as well as highlighting current tab
     search.delete(0, tk.END)
     global current, currentframe
@@ -86,6 +98,12 @@ def newtab(url=None):
         return
 
     frame = HtmlFrame(root)
+    if data["devopts"] == "True":
+        frame.config(messages_enabled=True)
+    else:
+        pass
+
+
     tabs.append(frame)
 
     index = len(tabs) - 1
@@ -132,7 +150,7 @@ def updatetab(): # Updates tab title
             root.title(tabtitle)
     except:
         pass
-    root.after(1000, updatetab)
+    root.after(100, updatetab)
 
 def customize(): # Originally I wanted a tkinter top level to appear so you can edit the settings, but I was too lazy so enjoy editing settings via notepad hehe
     if platform.system() == "Windows":
@@ -161,12 +179,17 @@ def refreshsettings(): # This function triggers whenever the user exits the note
                     name, value = line.strip().split('=')
                     newdata[name.strip()] = value.strip()
 
+        if newdata.get("devopts") == data.get("devopts"):
+            pass
+        else:
+            useropt = messagebox.showinfo(title="Settings", message=f"Restart browser to see changes made in DevOpts")
+            if useropt == "ok":
+                python = sys.executable
+                os.execl(python, python, *sys.argv)
         data = newdata
-
         colorthing.config(bg=data['color'])
         searchtab.config(bg=data['color'])
         tabbar.config(bg=data['tabcol'])
-
 
     except Exception as e:
         print(e)
@@ -190,6 +213,7 @@ search.pack(side='left')
 
 searchbutton = tk.Button(searchtab, width=10, text="Search")
 searchbutton.pack(side='left')
+
 
 tabbar = tk.Frame(colorthing, bg=data['tabcol'])
 tabbar.pack(fill="x")
@@ -232,40 +256,62 @@ error_generic = """
   </body>
   </html>
   """
+loadstates = ["Checking connection", "Searching", "Loading Page"]
+loadindex = 0
+loadtext = loadstates[0]
+loadcount = 0
 
-loading = """
-<!DOCTYPE html>
-<html>
-  <head>
-  <title>Searching</title>
-  </head>
-  <body>
-  <hr>
-  <h1>Searching...</h1>
-  <hr>
-  </body>
-  </html>
-"""
+def resetLoader():
+    global loadindex, loadcount
+    loadindex = 0
+    loadcount = 0
+
+def updloadtext():
+    global loadindex, loadtext, loadcount
+    if loadcount >= 3:
+        return
+    loadtext = loadstates[loadindex]
+    loadindex = (loadindex + 1) % len(loadstates)
+    loadcount += 1
+    if currentframe:
+        currentframe.load_html(loading())
+    root.after(500, updloadtext)
+def loading():
+    return f"""
+    <!DOCTYPE html>
+    <html>
+      <head>
+      <title>{loadtext}</title>
+      </head>
+      <body>
+      <hr>
+      <h1>{loadtext}</h1>
+      <hr>
+      </body>
+      </html>
+    """
+
 def checkonline(url):
     try:
-        currentframe.load_html(loading)
-        requests.get(url, timeout=3) # Slows down the browser a bit but ehh better safe than sorry ig
+        requests.get(url, timeout=3)
         return True
     except:
         return False
-def loadnoworelse(url): # hehe now I can throw errors at your face
+def loadnoworelse(url): # hehe now I can throw error at your face
     try:
+        global loadcount
         url = url.strip()
-
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
-
-        if not checkonline(url):
+        resetLoader()
+        updloadtext()
+        ok = checkonline(url)
+        if not ok:
             currentframe.load_html(error_internet)
             return
 
+        loadcount = 999
         currentframe.load_website(url)
-
     except Exception as e:
         currentframe.load_html(error_generic)
         print(e)
