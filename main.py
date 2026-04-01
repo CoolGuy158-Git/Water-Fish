@@ -21,11 +21,18 @@ import sys
 
 data = {}
 
-with open('settings.txt', 'r') as file: # Hmmm
-    for line in file:
-        if '=' in line:
-            name, value = line.strip().split('=')
-            data[name.strip()] = value.strip()
+try:
+    with open('settings.txt', 'r') as file: # Yes it's a txt, why? idk
+        for line in file:
+            if '=' in line:
+                name, value = line.strip().split('=')
+                data[name.strip()] = value.strip()
+except FileNotFoundError:
+    messagebox.showerror('Fatal Error', 'Settings file not found')
+    sys.exit()
+except Exception as e:
+    messagebox.showerror('Error', e)
+    sys.exit()
 
 root = tk.Tk()
 root.geometry("1000x700")
