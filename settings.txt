@@ -2,3 +2,5 @@ color = gray
 tabcol = darkgray
 hightabcol = lightblue
 devopts = False
+assistant = True
+firstime = True

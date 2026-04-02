@@ -18,7 +18,7 @@ import platform
 import threading
 import os
 import sys
-
+from wfmodules.Welcome import start # Planning to make a feature where users can create their own wfmodules
 data = {}
 
 try:
@@ -27,6 +27,7 @@ try:
             if '=' in line:
                 name, value = line.strip().split('=')
                 data[name.strip()] = value.strip()
+
 except FileNotFoundError:
     messagebox.showerror('Fatal Error', 'Settings file not found')
     sys.exit()
@@ -35,6 +36,7 @@ except Exception as e:
     sys.exit()
 
 root = tk.Tk()
+start(root, data)
 root.geometry("1000x700")
 root.title("Water Fish")
 root.iconbitmap("waterfish.ico")
@@ -208,7 +210,6 @@ colorthing = tk.Frame(root, width=1000, height=100, bg=data['color'])
 colorthing.pack(fill='x')
 colorthing.pack_propagate(False)
 colorthing.bind("<Button-3>", imalwaysright)
-
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
 
@@ -325,7 +326,6 @@ def loadnoworelse(url): # hehe now I can throw error at your face
 
 def load(url):
     threading.Thread(target=loadnoworelse, args=(url,), daemon=True).start()
-
 def searchfor():
     raw = search.get().strip()
 
