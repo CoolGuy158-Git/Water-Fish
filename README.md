@@ -33,5 +33,24 @@ CONTRIBUTING.md is [here](CONTRIBUTING.md).
 
 </details>
 
+## Project Structure
+```
+Water-Fish/
+├── main.py
+├── README.md
+├── CONTRIBUTING.md
+├── Requirements.txt
+├── info.html
+
+├── images/
+│   ├── waterfish.ico
+│   ├── waterfish.png
+
+├── system/
+│   ├── settings.txt
+
+├── wfmodules/
+│   ├── Welcome.py
+```
 
 **Starting update 3.0 most new features would be added on to wfmodules as main.py file is getting too big and messy**
