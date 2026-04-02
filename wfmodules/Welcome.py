@@ -50,9 +50,9 @@ def start(root, data):
             frame = HtmlFrame(app)
             frame.pack(fill="both", expand=True)
             frame.load_html(welcome)
-            with open("settings.txt", "r") as f:
+            with open("system/settings.txt", "r") as f:
                 lines = f.readlines()
-            with open("settings.txt", "w") as f:
+            with open("system/settings.txt", "w") as f:
                 for line in lines:
                     if line.startswith("firstime ="):
                         f.write("firstime = False\n")

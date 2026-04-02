@@ -22,7 +22,7 @@ from wfmodules.Welcome import start # Planning to make a feature where users can
 data = {}
 
 try:
-    with open('settings.txt', 'r') as file: # Yes it's a txt, why? idk
+    with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
         for line in file:
             if '=' in line:
                 name, value = line.strip().split('=')
@@ -39,7 +39,7 @@ root = tk.Tk()
 start(root, data)
 root.geometry("1000x700")
 root.title("Water Fish")
-root.iconbitmap("waterfish.ico")
+root.iconbitmap("images/waterfish.ico")
 textchoice = ['The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
 def homepage():
     text = random.choice(textchoice) # Wait this actually worked?
@@ -53,7 +53,7 @@ def homepage():
   <center>
     <h1><a href=info.html>WaterFish</a></h1>
     <hr>
-    <img src=waterfish.png width=300 height=300>
+    <img src=images/waterfish.png width=300 height=300>
     <hr>
     <br>
     <table border="1" cellpadding="5">
@@ -163,9 +163,9 @@ def updatetab(): # Updates tab title
 
 def customize(): # Originally I wanted a tkinter top level to appear so you can edit the settings, but I was too lazy so enjoy editing settings via notepad hehe
     if platform.system() == "Windows":
-        proc = subprocess.Popen(["notepad.exe", "settings.txt"])
+        proc = subprocess.Popen(["notepad.exe", "system/settings.txt"])
     elif platform.system() == "Darwin":
-        proc = subprocess.Popen(["open", "settings.txt"])
+        proc = subprocess.Popen(["open", "system/settings.txt"])
     else:
         proc = subprocess.Popen(["xdg-open", "settings.txt"])
     checkditor(proc)
@@ -182,7 +182,7 @@ def refreshsettings(): # This function triggers whenever the user exits the note
     global data
     try:
         newdata = {}
-        with open('settings.txt', 'r') as file:
+        with open('system/settings.txt', 'r') as file:
             for line in file:
                 if '=' in line:
                     name, value = line.strip().split('=')

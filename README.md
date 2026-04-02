@@ -2,7 +2,7 @@
 
 ---
 
-![WaterFish Logo](waterfish.png)
+![WaterFish Logo](images/waterfish.png)
 
 ---
 
@@ -34,3 +34,4 @@ CONTRIBUTING.md is [here](CONTRIBUTING.md).
 </details>
 
 
+**Starting update 3.0 most new features would be added on to wfmodules as main.py file is getting too big and messy**

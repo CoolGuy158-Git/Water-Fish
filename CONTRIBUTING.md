@@ -33,10 +33,13 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 - [ ] Add back/forward navigation
 - [ ] Improve search handling
 - [ ] Better settings system
+- [ ] User made modules support (Kind of like extensions in Firefox and Chrome)
 ### Hard
 - [ ] Custom rendering engine (replace tkinterweb)
 - [ ] Add sandboxing for pages
 - [ ] Improve performance
+- [ ] Security features
+- [ ] Password vault
 
 ***New tasks will appear once one is accomplished***
 
@@ -65,3 +68,5 @@ We're building a browser to connect the world, not to make humans fight even mor
 
 ## Thanks! 
 Every contribution matters! Even small fixes help a lot.
+
+**Please add most if not all new features on to wfmodules and just import them to main.py as the file is getting to big and messy, and might get hard to maintain**
