@@ -5,8 +5,6 @@ This is the Welcomer module for when it's the user's first time of using WaterFi
 Its meant as a fun way to get started with WaterFish
 It also gives the user a tour around the browser to make sure anyone who's just starting off knows the basics to waterfish.
 It's a module that focuses on improving user experience.
----
-Under General Public License Version 3
 """
 import tkinter as tk
 from tkinterweb import HtmlFrame

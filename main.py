@@ -19,8 +19,8 @@ import threading
 import os
 import sys
 from wfmodules.Welcome import start # Planning to make a feature where users can create their own wfmodules
-data = {}
 
+data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
         for line in file:
