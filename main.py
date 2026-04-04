@@ -19,6 +19,7 @@ import threading
 import os
 import sys
 from wfmodules.Welcome import start # Planning to make a feature where users can create their own wfmodules
+import wfmodules.secrets
 
 data = {}
 try:
@@ -309,8 +310,10 @@ def loadnoworelse(url): # hehe now I can throw error at your face
     try:
         global loadcount
         url = url.strip()
+        wfmodules.secrets.checkurl(url)
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
+            wfmodules.secrets.checkurl(url)
         resetLoader()
         updloadtext()
         ok = checkonline(url)
