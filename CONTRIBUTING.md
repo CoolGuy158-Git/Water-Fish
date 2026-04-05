@@ -39,7 +39,6 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 - [ ] Add sandboxing for pages
 - [ ] Improve performance
 - [ ] Security features
-- [ ] Password vault
 
 ***New tasks will appear once one is accomplished***
 

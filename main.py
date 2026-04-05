@@ -310,14 +310,15 @@ def loadnoworelse(url): # hehe now I can throw error at your face
     try:
         global loadcount
         url = url.strip()
-        wfmodules.secrets.checkurl(url)
+        wfmodules.secrets.checkurl(url, currentframe)
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
-            wfmodules.secrets.checkurl(url)
+            wfmodules.secrets.checkurl(url, currentframe)
         resetLoader()
         updloadtext()
         ok = checkonline(url)
-        if not ok:
+        if not ok: # I'm not ok --broken heart emoji-
+            loadcount = 999
             currentframe.load_html(error_internet)
             return
 
