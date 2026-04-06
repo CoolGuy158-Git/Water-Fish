@@ -1,0 +1,10 @@
+https://news.ycombinator.com, Hacker News
+https://github.com/trending, GitHub Trending
+https://developer.mozilla.org, MDN Web Docs
+https://stackoverflow.com, Stack Overflow
+https://git-scm.com/docs, Git Docs
+https://www.kernel.org, Linux Kernel
+https://docs.python.org/3/, Python Docs
+https://go.dev/doc/, Go Docs
+https://rust-lang.org/learn, Rust Docs
+https://kubernetes.io/docs/, Kubernetes Docs

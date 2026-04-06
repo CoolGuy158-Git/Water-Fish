@@ -49,7 +49,7 @@ Water-Fish/
 ├── system/
 │   ├── settings.txt
 
-├── audio
+├── audio/
 │   ├── rickroll.mp3
 
 ├── wfmodules/

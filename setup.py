@@ -36,7 +36,7 @@ def start():
     time.sleep(1)
     os.remove('Water-Fish/setup.py')
     base = "Water-Fish"
-    paths = ["main.py","wfmodules/Welcome.py","wfmodules/secrets.py","system/settings.txt","images/waterfish.ico","images/waterfish.png","Requirements.txt","info.html"]
+    paths = ["main.py","wfmodules/Welcome.py","wfmodules/secrets.py","wfmodules/command.py","system/settings.txt","system/favorites.txt","images/waterfish.ico","images/waterfish.png","Requirements.txt","info.html"]
 
     for p in paths:
         fullp = os.path.join(base,p)
@@ -54,7 +54,7 @@ def start():
     root.update()
     time.sleep(1)
     try:
-        subprocess.run(["python", "Water-Fish/main.py"])
+        subprocess.run([sys.executable, "Water-Fish/main.py"])
         root.update()
         time.sleep(1)
         root.destroy()

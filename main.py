@@ -13,13 +13,11 @@ import urllib.parse
 import requests
 import random
 from tkinter import messagebox
-import subprocess
-import platform
 import threading
-import os
 import sys
 from wfmodules.Welcome import start # Planning to make a feature where users can create their own wfmodules
 import wfmodules.secrets
+from wfmodules.command import urlcheck
 
 data = {}
 try:
@@ -43,51 +41,47 @@ root.title("Water Fish")
 root.iconbitmap("images/waterfish.ico")
 textchoice = ['The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
 def homepage():
+    favorites = []
+    with open("system/favorites.txt", "r") as f: # Yup NO MORE HARD CODING!!!
+        for line in f:
+            link, name = line.strip().split(", ")
+            favorites.append((link, name))
     text = random.choice(textchoice) # Wait this actually worked?
+    rows = ""
+    colsrow = 5
+    for i in range(0, len(favorites), colsrow):
+        chunk = favorites[i:i + colsrow]
+        row = "".join(f'<td><a href="{link}" target="_blank">{name}</a></td>'for link, name in chunk)
+        rows += f"<tr>{row}</tr>"
     return f"""
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Homepage</title>
-  </head>
-  <body bgcolor="lightblue">
-  <center>
-    <h1><a href=info.html>WaterFish</a></h1>
-    <hr>
-    <img src=images/waterfish.png width=300 height=300>
-    <hr>
-    <br>
-    <table border="1" cellpadding="5">
-    <tr>
-    <td><a href="https://text.npr.org/" target="_blank">NPR</a></td>
-    <td><a href="https://lite.cnn.com/" target="_blank">CNN</a></td>
-    <td><a href="https://www.bbc.co.uk/news/10628494" target="_blank">BBC</a></td>
-    <td><a href="https://www.fdic.gov/resources/resolutions/bank-failures/failed-bank-list/" target="_blank">FDIC</a></td>
-    <td><a href="https://www.linfo.org/" target="_blank">Linfo.org</a></td>
-    </tr>
-    <tr>
-    <td><a href="https://www.dictionary.com/e/word-of-the-day/" target="_blank">Dictionary.com</a></td>
-    <td><a href="https://www.cplusplus.com/doc/tutorial/" target="_blank">C++ Tutorial</a></td>
-    <td><a href="https://www.gnu.org/manual/manual.html" target="_blank">GNU Manuals</a></td>
-    <td><a href="https://www.ietf.org/rfc/" target="_blank">RFC Editor</a></td>
-    <td><a href="https://www.w3.org/TR/html52/" target="_blank">W3C HTML5.2</a></td>
-    </tr>
-  </table>
-  <br>
-  <hr>
-  <h3>{text}</h3>
-  <hr>
-  </center>
-  </body>
-</html>"""
-# I may need to add something that lets the user pick their own fav websites to add here
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Homepage</title>
+      </head>
+      <body bgcolor="lightblue">
+      <center>
+        <h1><a href="info.html">WaterFish</a></h1>
+        <hr>
+        <img src="images/waterfish.png" width="300" height="300">
+        <hr><br>
+        <table border="1" cellpadding="5">
+        {rows}
+        </table>
+        <br><hr>
+        <h3>{text}</h3>
+        <hr>
+      </center>
+      </body>
+    </html>
+    """
 tabs = []
 current = None
 currentframe = None
 tabbtnn = []
 maxtabs = 12
 
-def switch(index): # This function handles tab switching as well as highlighting current tab
+def switch(index): # This function handles tab switching as well as highlighting current tab so that users actually know where they are
     search.delete(0, tk.END)
     global current, currentframe
     for t in tabs:
@@ -162,55 +156,9 @@ def updatetab(): # Updates tab title
         pass
     root.after(100, updatetab)
 
-def customize(): # Originally I wanted a tkinter top level to appear so you can edit the settings, but I was too lazy so enjoy editing settings via notepad hehe
-    if platform.system() == "Windows":
-        proc = subprocess.Popen(["notepad.exe", "system/settings.txt"])
-    elif platform.system() == "Darwin":
-        proc = subprocess.Popen(["open", "system/settings.txt"])
-    else:
-        proc = subprocess.Popen(["xdg-open", "settings.txt"])
-    checkditor(proc)
-
-
-def checkditor(proc):
-    if proc.poll() is None:
-        root.after(500, lambda: checkditor(proc))
-    else:
-        refreshsettings()
-
-
-def refreshsettings(): # This function triggers whenever the user exits the notepad, thus updating all the settings, well all except for hightabcol you have to open a new tab for that because well tabbtn is a local variable
-    global data
-    try:
-        newdata = {}
-        with open('system/settings.txt', 'r') as file:
-            for line in file:
-                if '=' in line:
-                    name, value = line.strip().split('=')
-                    newdata[name.strip()] = value.strip()
-
-        if newdata.get("devopts") == data.get("devopts"):
-            pass
-        else:
-            useropt = messagebox.showinfo(title="Settings", message=f"Restart browser to see changes made in DevOpts")
-            if useropt == "ok":
-                python = sys.executable
-                os.execl(python, python, *sys.argv)
-        data = newdata
-        colorthing.config(bg=data['color'])
-        searchtab.config(bg=data['color'])
-        tabbar.config(bg=data['tabcol'])
-
-    except Exception as e:
-        print(e)
-
-def imalwaysright(event): # idc what you say this is the best func name, ok but really though this activates customize
-    customize()
-
 colorthing = tk.Frame(root, width=1000, height=100, bg=data['color'])
 colorthing.pack(fill='x')
 colorthing.pack_propagate(False)
-colorthing.bind("<Button-3>", imalwaysright)
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
 
@@ -311,9 +259,11 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         global loadcount
         url = url.strip()
         wfmodules.secrets.checkurl(url, currentframe)
+        urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage)
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
             wfmodules.secrets.checkurl(url, currentframe)
+            urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage)
         resetLoader()
         updloadtext()
         ok = checkonline(url)

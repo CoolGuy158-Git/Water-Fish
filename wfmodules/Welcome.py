@@ -19,7 +19,7 @@ welcome = """
 <hr>
 <p>Have a look around!</p>
 <p>We've got a simple yet nice interface, complete tabs etc.</p>
-<p>Right click the top of the browser to open options!</p>
+<p>Type /cmds (to customize) and /cmds fav (to change favorite url's)</p>
 <p>For navigation, click the home button to return to the homepage</p>
 <p>As for the tabs it's simple but effective click the '+' to add a tab and click '-' to remove a tab</p>
 <p>If you have anymore questions, you can join the community on discord!</p>
