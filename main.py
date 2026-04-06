@@ -85,7 +85,7 @@ tabs = []
 current = None
 currentframe = None
 tabbtnn = []
-maxtabs = 20
+maxtabs = 12
 
 def switch(index): # This function handles tab switching as well as highlighting current tab
     search.delete(0, tk.END)
