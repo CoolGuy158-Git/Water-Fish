@@ -47,7 +47,6 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 ## Coding Guidelines
 - Keep the code clean
 - Follow the existing code style to keep changes readable and easy to review
-- Please keep most or all of the variable/func name Camel Case
 - Don't break existing features and make sure your code actually works (Test your changes before submitting a PR)
 
 ***If your  code doesn't follow these guidelines, I will not merge your PR and you will have to change your code to fit with these guidelines***
