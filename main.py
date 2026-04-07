@@ -10,7 +10,6 @@ Under General Public License Version 3
 import tkinter as tk
 from tkinterweb import HtmlFrame # Planning to make my own renderer but for know imma stick with tkinterweb
 import urllib.parse
-import requests
 import random
 from tkinter import messagebox
 import threading
@@ -18,6 +17,7 @@ import sys
 from wfmodules.Welcome import start # Planning to make a feature where users can create their own wfmodules
 import wfmodules.secrets
 from wfmodules.command import urlcheck
+from wfmodules.checkonline import checkonline
 
 data = {}
 try:
@@ -248,12 +248,6 @@ def loading():
       </html>
     """
 
-def checkonline(url):
-    try:
-        requests.get(url, timeout=3)
-        return True
-    except:
-        return False
 def loadnoworelse(url): # hehe now I can throw error at your face
     try:
         global loadcount
@@ -266,7 +260,7 @@ def loadnoworelse(url): # hehe now I can throw error at your face
             urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage)
         resetLoader()
         updloadtext()
-        ok = checkonline(url)
+        ok = checkonline(url, data)
         if not ok: # I'm not ok --broken heart emoji-
             loadcount = 999
             currentframe.load_html(error_internet)
