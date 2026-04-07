@@ -1,5 +1,5 @@
 color = gray
 tabcol = darkgray
 hightabcol = lightblue
-devopts = True
-firstime = False
+devopts = False
+firstime = True
