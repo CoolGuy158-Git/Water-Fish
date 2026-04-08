@@ -18,7 +18,7 @@ from wfmodules.Welcome import start # Planning to make a feature where users can
 import wfmodules.secrets
 from wfmodules.command import urlcheck
 from wfmodules.checkonline import checkonline
-
+from wfmodules.history import historytrack, obliterate
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -80,6 +80,7 @@ current = None
 currentframe = None
 tabbtnn = []
 maxtabs = 12
+urlgoesbrr = ""
 
 def switch(index): # This function handles tab switching as well as highlighting current tab so that users actually know where they are
     search.delete(0, tk.END)
@@ -100,8 +101,8 @@ def newtab(url=None):
     if len(tabs) >= maxtabs:
         messagebox.showinfo(title="Max tabs", message="Im to lazy to add a scroll thing") # Don't worry im planning to add it
         return
-
     frame = HtmlFrame(root)
+    frame.enable_link_clicks = True
     if data["devopts"] == "True":
         frame.config(messages_enabled=True)
     else:
@@ -155,12 +156,41 @@ def updatetab(): # Updates tab title
     except:
         pass
     root.after(100, updatetab)
-
+def back():
+    global urlgoesbrr
+    with open("system/history.txt", "r", encoding="utf-8") as f:
+        lines = f.read().splitlines()
+    cur = urlgoesbrr
+    for i in range(1, len(lines)):
+        for i in range(len(lines)):
+            if lines[i] == cur:
+                if i == 0:
+                    return
+                urlgoesbrr = lines[i - 1]
+                currentframe.load_website(lines[i - 1])
+                return
+def forward():
+    global urlgoesbrr
+    with open("system/history.txt", "r", encoding="utf-8") as f:
+        lines = f.read().splitlines()
+    cur = urlgoesbrr
+    for i in range(len(lines)):
+        if lines[i] == cur:
+            if i == len(lines) - 1:
+                return
+            urlgoesbrr = lines[i + 1]
+            currentframe.load_website(lines[i + 1])
+            return
 colorthing = tk.Frame(root, width=1000, height=100, bg=data['color'])
 colorthing.pack(fill='x')
 colorthing.pack_propagate(False)
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
+
+back = tk.Button(searchtab, text="Back", command=back)
+back.pack(side="left")
+forward = tk.Button(searchtab, text="Forward", command=forward)
+forward.pack(side="right")
 
 gohome = tk.Button(searchtab, text="Home")
 gohome.pack(side='left')
@@ -251,6 +281,7 @@ def loading():
 def loadnoworelse(url): # hehe now I can throw error at your face
     try:
         global loadcount
+        global urlgoesbrr
         url = url.strip()
         wfmodules.secrets.checkurl(url, currentframe)
         urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage)
@@ -274,6 +305,7 @@ def loadnoworelse(url): # hehe now I can throw error at your face
 
 def load(url):
     threading.Thread(target=loadnoworelse, args=(url,), daemon=True).start()
+
 def searchfor():
     raw = search.get().strip()
 
@@ -300,6 +332,17 @@ def gohomefunc(): # Yea go home vro
     search.delete(0, tk.END)
 searchbutton.config(command=searchfor)
 gohome.config(command=gohomefunc)
+def updateurl():
+    global urlgoesbrr
+    if currentframe:
+        try:
+            urlgoesbrr = currentframe.current_url
+        except:
+            pass
+    root.after(100, updateurl)
 newtab()
 updatetab()
+updateurl()
+historytrack(root, lambda: urlgoesbrr, data)
+root.protocol("WM_DELETE_WINDOW", lambda: (obliterate(), root.destroy())) # Clear history.txt once user exits root
 root.mainloop()
