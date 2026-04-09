@@ -3,4 +3,3 @@ tabcol = darkgray
 hightabcol = lightblue
 devopts = False
 firstime = True
-https_only = False
