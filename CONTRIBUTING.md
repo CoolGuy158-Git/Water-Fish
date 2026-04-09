@@ -29,11 +29,15 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 - [ ] Improve UI
 - [ ] Improve Error pages
 - [ ] Add useful comments (Do not delete existing ones)
+- [ ] Add more Easter eggs
+- [ ] Add more useful commands
+- [ ] Better cross-platform support for OSes such as Linux distro's, Windows, and macOS.
 ### Medium
 - [ ] Add back/forward navigation
 - [ ] Improve search handling
 - [ ] Better settings system
 - [ ] User made modules support (Kind of like extensions in Firefox and Chrome)
+- [ ] Support for niche/alternative OS (At least those with GUI capabilities and can handle python as well as the libs/modules used for the project)
 ### Hard
 - [ ] Custom rendering engine (replace tkinterweb)
 - [ ] Add sandboxing for pages
@@ -59,6 +63,7 @@ When reporting bugs, include:
 - What you expected
 - Steps to reproduce
 - Screenshots
+***If you think it's because you're in a specific os and the browser has little to no support of it, please show your os and kernel name, we will try our best to add support to your os***
 
 ## Code of Conduct
 Be respectful. No toxic behavior.
