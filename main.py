@@ -19,6 +19,7 @@ import wfmodules.secrets
 from wfmodules.command import urlcheck
 from wfmodules.checkonline import checkonline
 from wfmodules.history import historytrack, obliterate
+from wfmodules.startup import animestart, endanime
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -36,6 +37,12 @@ except Exception as e:
 
 root = tk.Tk()
 start(root, data)
+if data['startup'] == 'True':
+    root.withdraw()
+    startscr = animestart(root)
+    root.after(2500, lambda: endanime(startscr, root))
+else:
+    pass
 root.geometry("1000x700")
 root.title("Water Fish")
 root.iconbitmap("images/waterfish.ico")

@@ -59,4 +59,3 @@ def urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage):
                 proc = subprocess.Popen(["xdg-open", "favorites.txt"])
             checkditor(proc)
         customize()
-
