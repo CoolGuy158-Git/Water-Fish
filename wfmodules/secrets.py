@@ -11,6 +11,7 @@ import urllib.parse
 import tkinter as tk
 from PIL import Image, ImageTk
 import winsound
+import random
 
 # Ok why did 1 am me decide to turn this into base64?
 rickroll = "audio/rickroll.mp3"
@@ -47,7 +48,14 @@ def checkurl(url, currentframe):
         """
         currentframe.load_html(helpi)
         time.sleep(1) # I spent like 30 mins wondering why helpi won't show...It was because load was covering it, so yea delay is here to make helpi visible.
-    elif "/egg bsod" in url: # Only works in Windows sorry~
+    elif "/egg bsod" in url:
+        """
+        Unfortunately yes this only works in windows.
+        No it doesn't show a real bsod if you go to images/bsoa.png
+        You'll see that first off its a smiley :) face not a sad face :(
+        Secondly the text specifically says PC is fine.
+        So yea.
+        """
         winsound.MessageBeep(winsound.MB_ICONHAND)
         bsod = tk.Toplevel()
         bsod.attributes("-fullscreen", True)
@@ -61,5 +69,7 @@ def checkurl(url, currentframe):
         bg.place(relwidth=1, relheight=1)
         bg.image = img
         bsod.bind("<Escape>", lambda e: bsod.destroy())
+        sixseven = [6000, 7000]
+        bsod.after(random.choice(sixseven), bsod.destroy)
         time.sleep(0.1)
 
