@@ -15,10 +15,28 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 
 ---
 
+## Current target Goal
+
+***Warning this goal is a little bit advance that's why im seeking out people who can help as I am dumb and can't do this sh## alone***
+
+We are actively working towards building a **Custom rendering engine** that supports html and css.
+This means we are trying to find contributors who understand or are willing to learn:
+- HTML parsing
+- DOM tree creation
+- Rendering system
+- And more
+
+***We also have to make sure that the renderer module has similar namespace to tkinterweb so that we won't have to modify the main.py too much***
+
+***If you only want to do UI tweaks or small fixes that's fine we appreciate it however major progress depends on the renderer system being built.***
+
+---
+
 ## What to contribute
 - Help in fixing any bugs you find
 - Improving documentation
 - Suggesting features
+- Help with Current Target Goal
 - You can also choose things to do from the following TODO list
 
 ---
@@ -55,6 +73,17 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 - Don't break existing features and make sure your code actually works (Test your changes before submitting a PR)
 
 ***If your  code doesn't follow these guidelines, I will not merge your PR and you will have to change your code to fit with these guidelines***
+
+---
+
+## AI
+[Vibe-coded](https://en.wikipedia.org/wiki/Vibe_coding) contributions are not allowed.
+
+AI assistance is allowed, but you must:
+- Understand and test any AI generated code before submitting a PR.
+- Clearly mention which part of the code AI was used in.
+
+AI must NEVER be allowed for security-sensitive changes.
 
 ---
 
