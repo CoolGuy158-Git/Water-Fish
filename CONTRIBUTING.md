@@ -17,7 +17,7 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 
 ## Current target Goal
 
-***Warning this goal is a little bit advance that's why im seeking out people who can help as I am dumb and can't do this sh## alone***
+***Warning this goal is a little bit advance that's why im seeking out people who can help***
 
 We are actively working towards building a **Custom rendering engine** that supports html and css.
 This means we are trying to find contributors who understand or are willing to learn:
