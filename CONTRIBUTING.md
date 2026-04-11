@@ -15,7 +15,7 @@ git clone https://github.com/YOUR-USERNAME/YOUR-FORK-NAME
 
 ---
 
-## Current target Goal
+## Current Target Goal — [InkSquid Spec](InkSquid.md)
 
 ***Warning this goal is a little bit advance that's why im seeking out people who can help***
 
