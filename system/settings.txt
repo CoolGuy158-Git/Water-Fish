@@ -2,5 +2,6 @@ color = gray
 tabcol = darkgray
 hightabcol = lightblue
 devopts = False
-firstime = True
+firstime = False
 startup = True
+remora = True
