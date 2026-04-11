@@ -11,7 +11,8 @@ Very close to secrets except that it doesn't troll you.
 import urllib.parse
 import subprocess
 import platform
-def urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage):
+from wfmodules.Remora import initRemora
+def urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage, data):
     url = urllib.parse.unquote(url).lower()
     url = " ".join(url.split())
 
@@ -59,3 +60,6 @@ def urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage):
                 proc = subprocess.Popen(["xdg-open", "favorites.txt"])
             checkditor(proc)
         customize()
+    if "/cmds remora" in url:
+        initRemora(root, data)
+

@@ -35,7 +35,8 @@ def animestart(root):
         startscr.after(10, update)
     update()
     return startscr
-def endanime(window, root):
+def endanime(window, root, start, data):
+    start(root, data)
     window.destroy()
     pygame.mixer.init()
     pygame.mixer.music.load('audio/startup.mp3') # Sound Effect by https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14572

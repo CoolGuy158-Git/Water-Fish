@@ -36,13 +36,12 @@ except Exception as e:
     sys.exit()
 
 root = tk.Tk()
-start(root, data)
 if data['startup'] == 'True':
     root.withdraw()
     startscr = animestart(root)
-    root.after(2500, lambda: endanime(startscr, root))
+    root.after(2500, lambda: endanime(startscr, root, start, data))
 else:
-    pass
+    start(root, data)
 root.geometry("1000x700")
 root.title("Water Fish")
 root.iconbitmap("images/waterfish.ico")
@@ -130,8 +129,7 @@ def newtab(url=None):
 
     switch(index)
 def addtab(index):
-    btn = tk.Button(tabbar,text=f"Tab {index + 1}",command=lambda i=index: switch(i)
-    )
+    btn = tk.Button(tabbar,text=f"Tab {index + 1}",command=lambda i=index: switch(i))
     btn.pack(side="left")
     tabbtnn.append(btn)
 def remtab(index): # removes your ex- i mean unused tabs
@@ -291,11 +289,11 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         global urlgoesbrr
         url = url.strip()
         wfmodules.secrets.checkurl(url, currentframe)
-        urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage)
+        urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage, data)
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
             wfmodules.secrets.checkurl(url, currentframe)
-            urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage)
+            urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage, data)
         resetLoader()
         updloadtext()
         ok = checkonline(url, data)
