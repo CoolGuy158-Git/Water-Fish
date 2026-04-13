@@ -20,6 +20,7 @@ from wfmodules.command import urlcheck
 from wfmodules.checkonline import checkonline
 from wfmodules.history import historytrack, obliterate
 from wfmodules.startup import animestart, endanime
+from wfmodules.stars import *
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -186,14 +187,23 @@ def forward():
             urlgoesbrr = lines[i + 1]
             currentframe.load_website(lines[i + 1])
             return
-colorthing = tk.Frame(root, width=1000, height=100, bg=data['color'])
+
+menubar = tk.Frame(root, width=1000, height=70,bg='darkgray')
+menubar.pack(fill="x")
+
+colorthing = tk.Frame(root, width=1000, height=130, bg=data['color'])
 colorthing.pack(fill='x')
 colorthing.pack_propagate(False)
+
+openstar = tk.Button(menubar, text="Open Star")
+openstar.pack(side="left")
+
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
 
 backbtn = tk.Button(searchtab, text="Back", command=back)
-backbtn.pack(side="left")
+backbtn.pack(side="left", pady=20)
+
 forwardbtn = tk.Button(searchtab, text="Forward", command=forward)
 forwardbtn.pack(side="right")
 
@@ -205,7 +215,6 @@ search.pack(side='left')
 
 searchbutton = tk.Button(searchtab, width=10, text="Search")
 searchbutton.pack(side='left')
-
 
 tabbar = tk.Frame(colorthing, bg=data['tabcol'])
 tabbar.pack(fill="x")
@@ -311,8 +320,8 @@ def loadnoworelse(url): # hehe now I can throw error at your face
 def load(url):
     threading.Thread(target=loadnoworelse, args=(url,), daemon=True).start()
 
-def searchfor():
-    raw = search.get().strip()
+def searchfor(urlthing=None):
+    raw = urlthing or search.get().strip()
 
     if not raw:
         messagebox.showwarning(title="Error", message="Entry empty")
@@ -329,6 +338,7 @@ def searchfor():
         url = f"https://wiby.me/?q={query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
         load(url)
 
+openstar.config(command=lambda: openbook(root, searchfor, urlgoesbrr))
 search.bind('<Return>', lambda event: searchfor())
 
 def gohomefunc(): # Yea go home vro
