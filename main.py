@@ -20,7 +20,8 @@ from wfmodules.command import urlcheck
 from wfmodules.checkonline import checkonline
 from wfmodules.history import historytrack, obliterate
 from wfmodules.startup import animestart, endanime
-from wfmodules.stars import *
+from wfmodules.stars import openbook
+from wfmodules.reload import reloadmain, reload
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -197,6 +198,12 @@ colorthing.pack_propagate(False)
 
 openstar = tk.Button(menubar, text="Open Star")
 openstar.pack(side="left")
+
+refresh = tk.Button(menubar, text="Refresh Root", command=lambda: reloadmain(root))
+refresh.pack(side="left")
+
+reloadpg = tk.Button(menubar, text="Reload", command=lambda: reload(currentframe))
+reloadpg.pack(side="left")
 
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
