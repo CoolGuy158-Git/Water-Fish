@@ -22,6 +22,7 @@ from wfmodules.history import historytrack, obliterate
 from wfmodules.startup import animestart, endanime
 from wfmodules.stars import openbook
 from wfmodules.reload import reloadmain, reload
+from wfmodules.logger import log
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -322,7 +323,7 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         currentframe.load_website(url)
     except Exception as e:
         currentframe.load_html(error_generic)
-        print(e)
+        log(e, logtype='error')
 
 def load(url):
     threading.Thread(target=loadnoworelse, args=(url,), daemon=True).start()
