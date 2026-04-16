@@ -27,6 +27,12 @@ InkSquid\
 ```
 ---
 
+## Possibly Useful modules (stdlib not included)
+
+This will rely on a lot of modules for doing various stuff just make to our life easier!
+- requests (for well HTTP requests)
+- bs4 (to build DOM-like trees)
+
 ## Dev Note - Why am I doing this
 
 ---
