@@ -299,7 +299,6 @@ def loading():
       </body>
       </html>
     """
-
 def loadnoworelse(url): # hehe now I can throw error at your face
     try:
         global loadcount
@@ -311,6 +310,13 @@ def loadnoworelse(url): # hehe now I can throw error at your face
             url = "https://" + url
             wfmodules.secrets.checkurl(url, currentframe)
             urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage, data)
+        if url.startswith(("http://")):
+            if messagebox.askokcancel("Warning", "Http sites may be unsafe, continue with caution."):
+                currentframe.load_website(url)
+            else:
+                currentframe.load_html(homepage())
+                return
+
         resetLoader()
         updloadtext()
         ok = checkonline(url, data)
