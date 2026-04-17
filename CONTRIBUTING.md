@@ -51,7 +51,6 @@ This means we are trying to find contributors who understand or are willing to l
 - [ ] Add more useful commands
 - [ ] Better cross-platform support for OSes such as Linux distro's, Windows, and macOS.
 ### Medium
-- [ ] Add back/forward navigation
 - [ ] Improve search handling
 - [ ] Better settings system
 - [ ] User made modules support (Kind of like extensions in Firefox and Chrome)
