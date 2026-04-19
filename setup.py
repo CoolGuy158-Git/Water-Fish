@@ -36,7 +36,7 @@ def start():
     time.sleep(1)
     os.remove('Water-Fish/setup.py')
     base = "Water-Fish"
-    paths = ["main.py","wfmodules/Welcome.py","wfmodules/secrets.py","wfmodules/command.py","system/settings.txt","system/favorites.txt","images/waterfish.ico","images/waterfish.png","Requirements.txt","info.html"]
+    paths = ['Water-Fish/, main.py, README.md, CONTRIBUTING.md, Requirements.txt, info.html, images/waterfish.ico, images/waterfish.png, system/settings.txt, audio/rickroll.mp3, wfmodules/Welcome.py, wfmodules/secrets.py, wfmodules/history.py, wfmodules/command.py, wfmodules/checkonline.py, wfmodules/startup.py, wfmodules/remora.py, wfmodules/stars.py, wfmodules/reload.py, wfmodules/logger.py']
 
     for p in paths:
         fullp = os.path.join(base,p)
