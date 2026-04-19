@@ -23,6 +23,8 @@ from wfmodules.startup import animestart, endanime
 from wfmodules.stars import openbook
 from wfmodules.reload import reloadmain, reload
 from wfmodules.logger import log
+from wfmodules.dragndrop import dragndrop
+import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used, the other tk widgets are still usable though.
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -38,7 +40,7 @@ except Exception as e:
     messagebox.showerror('Error', e)
     sys.exit()
 
-root = tk.Tk()
+root = tkd.Tk()
 if data['startup'] == 'True':
     root.withdraw()
     startscr = animestart(root)
@@ -316,7 +318,6 @@ def loadnoworelse(url): # hehe now I can throw error at your face
             else:
                 currentframe.load_html(homepage())
                 return
-
         resetLoader()
         updloadtext()
         ok = checkonline(url, data)
@@ -372,6 +373,7 @@ def updateurl():
 newtab()
 updatetab()
 updateurl()
+dragndrop(root, lambda: currentframe)
 historytrack(root, lambda: urlgoesbrr, data)
 root.protocol("WM_DELETE_WINDOW", lambda: (obliterate(), root.destroy())) # Clear history.txt once user exits root
 root.mainloop()
