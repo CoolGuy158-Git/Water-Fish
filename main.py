@@ -24,6 +24,7 @@ from wfmodules.stars import openbook
 from wfmodules.reload import reloadmain, reload
 from wfmodules.logger import log
 from wfmodules.dragndrop import dragndrop
+from wfmodules.mp3play import initPlay, stopsng
 import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used, the other tk widgets are still usable though.
 data = {}
 try:
@@ -207,6 +208,12 @@ refresh.pack(side="left")
 
 reloadpg = tk.Button(menubar, text="Reload", command=lambda: reload(currentframe))
 reloadpg.pack(side="left")
+
+startsng = tk.Button(menubar, text="Start Sng", command=lambda: initPlay(root))
+startsng.pack(side="left")
+
+endsong = tk.Button(menubar, text="End Sng", command=lambda: stopsng())
+endsong.pack(side="left")
 
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
