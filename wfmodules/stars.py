@@ -33,6 +33,7 @@ def openbook(root, searchfor, urlgoesbrr):
         content = file.read()
 
     app = tk.Toplevel(root)
+    app.iconbitmap("images/waterfish.ico")
     app.title("Stars")
     app.geometry("400x200")
     app.resizable(False, False)

@@ -35,6 +35,7 @@ def start(root, data):
     def welcomeshow():
         if data.get("firstime") == "True":
             app = tk.Toplevel(root)
+            app.iconbitmap("images/waterfish.ico")
             app.title("Welcome")
             app.geometry("300x300")
             frame = HtmlFrame(app)

@@ -21,6 +21,7 @@ userinputs = [
 def initRemora(root, data):
     if data['remora'] == 'True':
         assis = tk.Toplevel(root)
+        assis.iconbitmap("images/waterfish.ico")
         assis.title("Remora")
         assis.resizable(False, False)
         assis.geometry("400x400")
