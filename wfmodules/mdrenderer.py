@@ -12,6 +12,7 @@ It can however, only render the following stuff:
         and so till header 6
     horizontal rule ---
     br are just spaces
+    a few other stuff
     and the rest of the stuff is just turned to a <p>text</p> because im lazy to add those complex stuff hehe.
 It's probably closer to a compiler (markdown -> html) though.
 """
@@ -26,8 +27,9 @@ def rendermd(currentframe, content, file):
         lines = lines.replace("\\#", "#")
         lines = lines.replace("\\---", "---")
         lines = lines.replace("\\*", "*")
+        lines = lines.replace("\\-", "-")
 
-        # Why's i, and b not in if/elif? So that even if you do ## *Italic header 2* it still works.
+        # Why's i, and b not in if/elif? So that even if you do ## *Italic header 2* it still works. Basically its usage in this specific case is if/elif = whole-line re = inline.
         lines = re.sub(r"\*\*(.*?)\*\*", r"<b>\1</b>", lines)
         lines = re.sub(r"\*(.*?)\*", r"<i>\1</i>", lines)
         if lines.startswith("# "):
@@ -48,6 +50,12 @@ def rendermd(currentframe, content, file):
         elif lines.startswith("###### "):
             text = lines[7:]
             lines = "<h6>" + text + "</h6>"
+        elif lines.startswith("- "):
+            text = lines[2:]
+            lines = "<p>&bull; " + text + "</p>"
+        elif lines.lstrip().startswith("<"):
+            output.append(lines)
+            continue
         elif lines.strip() == "---":
             lines = "<hr>"
         elif lines.strip() == "":
