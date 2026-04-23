@@ -7,7 +7,7 @@ As well as helping maintainers improve and make changes to checkonline easily.
 Checking steps (Skips the rest if one of them returns True):
     Checks if known addresses are found.
     Waits an additional 3 secs for the site you're trying to access (url) to respond.
-    Asks OS for info regarding network such us  as if Wi-Fi is on etc.
+    Checks if wiby.me is online.
 """
 
 import requests
@@ -41,6 +41,7 @@ def checkonline(url, data):
         if data['devopts'] == 'True':
             print("Known sites are not online.")
             print("Checking for current page response...")
+            print()
     try:
         """
         Wait's exactly 3 more seconds for the page to respond.
@@ -53,28 +54,25 @@ def checkonline(url, data):
     except:
         if data['devopts'] == 'True':
             print("Page didn't responded.")
-            print("Checking if Os's WiFi interface is on...")
+            print("Checking if WiBy is online...")
+            print()
         pass
+
     try:
         """
-        Checks if Os's WiFi interface is on.
-        Basically also the final one cuz its buggy and messy and ignores Ethernet users.
-        There's not much else to be said that's all it really does.
-        This my first time trynna actually make docs OK.
-        Don't judge me, hmph~ 
+        The last resort.
+        Checks if wiby.me is online.
+        Also if the browser's freaking search engine is down then basically the browser is down.
         """
-        stats = psutil.net_if_stats()
-        for iface, stat in stats.items():
-            name = iface.lower()
-            if stat.isup and ("wi" in name or "wlan" in name or "wireless" in name):
-                print("OS's WiFi interface is on.")
-                return True
-
+        requests.get('https://wiby.me', timeout=6) # Long ahh timeout, im giving wiby as much time as it needs. That's why it's not together with the known sites.
         if data['devopts'] == 'True':
-            print("OS's WiFi interface is off.")
-
+            print("WiBy is online.")
+            return True
     except:
-        return False
+        if data['devopts'] == 'True':
+            print("WiBy is offline. It's highly unlikely you're connected to the internet.")
+            return False
+
     return False
 
 

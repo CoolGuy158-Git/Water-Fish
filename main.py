@@ -377,10 +377,18 @@ def updateurl():
         except:
             pass
     root.after(100, updateurl)
+def closingwarn():
+    urlname = currentframe.title
+    if urlname != "Homepage":
+        if messagebox.askokcancel("Unsaved Work", "You may have some unsaved work, are you sure you want to quit?"):
+            root.destroy()
+    else:
+        root.destroy()
+
 newtab()
 updatetab()
 updateurl()
 dragndrop(root, lambda: currentframe)
 historytrack(root, lambda: urlgoesbrr, data)
-root.protocol("WM_DELETE_WINDOW", lambda: (obliterate(), root.destroy())) # Clear history.txt once user exits root
+root.protocol("WM_DELETE_WINDOW", lambda: (obliterate(), closingwarn())) # Clear history.txt once user exits root
 root.mainloop()
