@@ -1,0 +1,15 @@
+name: Example On Startup
+consent:"""
+This is a simple demo mod.
+It takes you to the example domain om startup.
+By clicking agree you agree that:
+    This mod shall take you to the example domain on startup.
+    That you've read this terms and conditions.
+    And that you've read the source code and fully,
+    understood what this mod does.
+"""
+license: MIT
+repository: https://github.com/example/hello-mod
+code:"""
+url = "https://example.com"
+"""
