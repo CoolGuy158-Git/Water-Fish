@@ -26,6 +26,7 @@ from wfmodules.logger import log
 from wfmodules.dragndrop import dragndrop
 from wfmodules.mp3play import initPlay, stopsng
 import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used, the other tk widgets are still usable though.
+from wfmodules.runcustmod import runCust
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -391,4 +392,6 @@ updateurl()
 dragndrop(root, lambda: currentframe)
 historytrack(root, lambda: urlgoesbrr, data)
 root.protocol("WM_DELETE_WINDOW", lambda: (obliterate(), closingwarn())) # Clear history.txt once user exits root
+if data["custmodBETA"] == "True":
+    root.after(3000, lambda: runCust(data, root, currentframe, menubar))
 root.mainloop()

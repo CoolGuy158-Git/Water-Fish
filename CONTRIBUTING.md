@@ -55,6 +55,7 @@ This means we are trying to find contributors who understand or are willing to l
 - [ ] Better settings system
 - [ ] User made modules support (Kind of like extensions in Firefox and Chrome)
 - [ ] Support for niche/alternative OS (At least those with GUI capabilities and can handle python as well as the libs/modules used for the project)
+- [ ] Add extra commands to custmod
 ### Hard
 - [ ] Custom rendering engine (replace tkinterweb)
 - [ ] Add sandboxing for pages
