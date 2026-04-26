@@ -26,6 +26,7 @@ Read more in custmod.md
 
 import os
 import tkinter as tk
+from tkinter import messagebox
 
 with open("system/acceptedcust.txt") as r:
     accepted = r.read().splitlines()
@@ -116,7 +117,6 @@ def runCust(data, root, currentframe, menubar): # Yay! Turtle Case!!!
             f = open("system/acceptedcust.txt", "a")
             f.write(file + "\n")
             f.close()
-            run(currentframe, menubar)
         agreebtn = tk.Button(up, text="I agree", bg='green', fg='white', command=agree)
         agreebtn.pack()
         disagreebtn = tk.Button(up, text="I disagree", bg='red', fg='white', command=lambda: up.destroy()) # TODO: make a function that places any modules which the user didn't accept to a seperate dir
@@ -148,7 +148,11 @@ def runCust(data, root, currentframe, menubar): # Yay! Turtle Case!!!
                                     widget.destroy() # Hehe
                             buttons[name] = tk.Button(menubar, text=name, command=lambda url=url: currentframe.load_url(url))
                             buttons[name].pack(side='left')
-
+                        elif line.startswith("showmessage = "):
+                            partsinfo = line.split('"')
+                            title = partsinfo[1]
+                            message = partsinfo[3]
+                            messagebox.showinfo(title, message)
     for file in os.listdir("custmod"): # This checks if a file is accepted or not so yea
         if file in accepted:
             parseFile()
