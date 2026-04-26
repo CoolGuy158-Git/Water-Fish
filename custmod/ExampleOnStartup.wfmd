@@ -11,5 +11,6 @@ By clicking agree you agree that:
 license: MIT
 repository: https://github.com/example/hello-mod
 code:"""
+showmessage = "example" "taking you to example.com"
 url = "https://example.com"
 """
