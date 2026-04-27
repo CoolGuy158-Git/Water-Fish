@@ -154,9 +154,6 @@ def runCust(data, root, currentframe, menubar): # Yay! Turtle Case!!!
                             message = partsinfo[3]
                             messagebox.showinfo(title, message)
     for file in os.listdir("custmod"): # This checks if a file is accepted or not so yea
-        if file in accepted:
-            parseFile()
-            run(currentframe, menubar)
-        else:
+        if file not in accepted:
             consentShow(root, file)
-
+    run(currentframe, menubar)
