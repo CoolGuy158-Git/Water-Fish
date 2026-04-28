@@ -28,6 +28,7 @@ from wfmodules.mp3play import initPlay, stopsng
 from wfmodules.overview import pageOverview
 import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used, the other tk widgets are still usable though.
 from wfmodules.runcustmod import runCust
+from wfmodules.offgame import error_internet
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -245,22 +246,6 @@ rembtn = tk.Button(tabbar, text="-", command=lambda: remtab(current if current i
 rembtn.pack(side="right")
 
 # TODO make an offline game!!!
-# Although we have to find out how to make a game that's html only...unless someone helps me make a renderer which can be expanded upon to support css and js (wink)
-error_internet = f"""
-<!DOCTYPE html>
-<html>
-  <head>
-  <title>Error</title>
-  </head>
-  <body>
-  <h1>Error Loading Page</h1>
-  <hr>
-  <p>Please check your internet connection</p>
-  <p>If error persists, file an issue on the <a href='https://github.com/CoolGuy158-Git/Water-Fish'>official github repo</a></p>
-  <p>your feedback truly matters</p>
-  </body>
-  </html>
-  """
 error_generic = """
 <!DOCTYPE html>
 <html>
@@ -332,7 +317,7 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         ok = checkonline(url, data)
         if not ok: # I'm not ok --broken heart emoji-
             loadcount = 999
-            currentframe.load_html(error_internet)
+            currentframe.load_html(error_internet())
             return
 
         loadcount = 999
