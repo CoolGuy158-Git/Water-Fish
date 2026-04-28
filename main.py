@@ -25,6 +25,7 @@ from wfmodules.reload import reloadmain, reload
 from wfmodules.logger import log
 from wfmodules.dragndrop import dragndrop
 from wfmodules.mp3play import initPlay, stopsng
+from wfmodules.overview import pageOverview
 import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used, the other tk widgets are still usable though.
 from wfmodules.runcustmod import runCust
 data = {}
@@ -394,4 +395,8 @@ historytrack(root, lambda: urlgoesbrr, data)
 root.protocol("WM_DELETE_WINDOW", lambda: (obliterate(), closingwarn())) # Clear history.txt once user exits root
 if data["custmodBETA"] == "True":
     root.after(3000, lambda: runCust(data, root, currentframe, menubar))
+if data["devopts"] == "True":
+    root.bind("<Button-2>", lambda event: pageOverview(currentframe, urlgoesbrr, root, search))
 root.mainloop()
+
+
