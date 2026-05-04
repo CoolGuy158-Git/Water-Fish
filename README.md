@@ -42,7 +42,7 @@ CONTRIBUTING.md is [here](CONTRIBUTING.md).
 
 </details>
 
-## Project Structure
+## Project Structure (Base dir and wfmodules only)
 ```
 Water-Fish/
 ├── main.py
@@ -50,16 +50,11 @@ Water-Fish/
 ├── CONTRIBUTING.md
 ├── Requirements.txt
 ├── info.html
-
-├── images/
-│   ├── waterfish.ico
-│   ├── waterfish.png
-
-├── system/
-│   ├── settings.txt
-
-├── audio/
-│   ├── rickroll.mp3
+├── LICENSE
+├── setup.py
+├── InkSquid.md
+├── custmod.md
+├── .gitignore
 
 ├── wfmodules/
 │   ├── Welcome.py
