@@ -29,6 +29,7 @@ from wfmodules.overview import pageOverview
 import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used, the other tk widgets are still usable though.
 from wfmodules.runcustmod import runCust
 from wfmodules.offgame import error_internet
+from WaterSearch.client import clientSTART
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -344,8 +345,11 @@ def searchfor(urlthing=None):
 
     else:
         query = urllib.parse.quote(raw)
-        url = f"https://wiby.me/?q={query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
-        load(url)
+        if data["wfsearch"] != "True":
+            url = f"https://wiby.me/?q={query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
+            load(url)
+        if data["wfsearch"] == "True":
+            clientSTART(query, currentframe)
 
 openstar.config(command=lambda: openbook(root, searchfor, urlgoesbrr))
 search.bind('<Return>', lambda event: searchfor())

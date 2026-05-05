@@ -55,6 +55,7 @@ Water-Fish/
 ├── InkSquid.md
 ├── custmod.md
 ├── .gitignore
+├── WaterSearch.md
 
 ├── wfmodules/
 │   ├── Welcome.py
