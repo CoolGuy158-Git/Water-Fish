@@ -6,3 +6,4 @@ firstime = True
 startup = True
 remora = True
 custmodBETA = False
+wfsearch = False
