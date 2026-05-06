@@ -35,8 +35,6 @@ def pageOverview(currentframe, urlgoesbrr, root, search):
         pageType = "Video"
     else:
         pass
-    if len(pageTitle) > 5:
-        pageTitle = pageTitle[:5] + "..."
     searchQuery = search.get().strip().lower() or "None"
     pageUrl = urlgoesbrr or "None"
     try:
@@ -50,7 +48,7 @@ def pageOverview(currentframe, urlgoesbrr, root, search):
     overview.title(pageTitle)
     overview.geometry("400x500")
     overview.resizable(False, False)
-    title = tk.Label(overview, text="Page Title: " + pageTitle, font=("Arial", 30))
+    title = tk.Label(overview, text="Page Title: " + pageTitle, font=("Arial", 20), wraplength=400)
     title.pack(side="top")
     line = tk.Label(overview, text="_____________________________________", font=("Arial", 10)) # LINE
     line.pack(side="top")
