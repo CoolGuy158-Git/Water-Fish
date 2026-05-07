@@ -4,9 +4,7 @@
 ## The info
 Allows users to create custom modules.
 User created modules are stored in custmod/ and must have the .wfmd extension.
-Currently the custmods only have 2 commands (url, btn).
-Url -> Transfers the user to a certain url
-Btn -> Creates a button in menubar
+Currently the custmods only have 4 commands (url, btn) and more.
 
 ---
 ## How to use one
