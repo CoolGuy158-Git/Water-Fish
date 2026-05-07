@@ -349,7 +349,7 @@ def searchfor(urlthing=None):
             url = f"https://wiby.me/?q={query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
             load(url)
         if data["wfsearch"] == "True":
-            clientSTART(query, currentframe)
+            threading.Thread(target=lambda: clientSTART(query, currentframe, data), daemon=True).start()
 
 openstar.config(command=lambda: openbook(root, searchfor, urlgoesbrr))
 search.bind('<Return>', lambda event: searchfor())
