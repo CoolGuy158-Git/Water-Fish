@@ -23,7 +23,7 @@ Go over to crawler.py run it and follow the following steps.
 ## How to search?
 As mentioned before you'll have to toggle wfsearch to True in settings otherwise it shall use the far superior wiby.
 Then after that you have to type ypur search in the search bar hit enter,
-due to bad design the search engine is going to be very slow around 25 secs for 15 results on average,
+due to bad design the search engine is going to be very slow around 5 secs for 15 results on average,
 you can de see the total time it took to load, the amount of results showns, your results and ofcourse previews!
 
 ---
