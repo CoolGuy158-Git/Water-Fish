@@ -57,7 +57,7 @@ def crawler():
         words = re.findall(r'\b[a-z]+\b', soup.get_text().lower())
         filler = {"the", "and", "of", "to", "a", "in", "is", "was", "by", "that", "you", "your", "you're", "are", "we", "they", "them", "he", "she", "it"}
         words = [w for w in words if w not in filler]
-        top = Counter(words).most_common(3)
+        top = Counter(words).most_common(10)
         results.append((currentURL, top))
 
         print(currentURL, top)

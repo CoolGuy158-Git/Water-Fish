@@ -8,6 +8,7 @@ Like for example user searches:
 The program finds the knownsites where Dog is mentioned and shows the sites with the most mention of dogs first.
 Honestly just use wiby over this.
 """
+import random
 import requests
 from bs4 import BeautifulSoup
 import warnings
@@ -15,10 +16,12 @@ from bs4 import XMLParsedAsHTMLWarning
 import time
 import ast
 from urllib.parse import urlparse
+import requests_cache
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
-
-def clientSTART(search, load):
+requests_cache.install_cache('wfSearchClientTemps', expire_after=3600)
+def clientSTART(search, load, settings):
     """
     Very, very slow, goes through each line of knownsites,
     then checks if search is in line,
@@ -26,41 +29,95 @@ def clientSTART(search, load):
     in order to get stuff such as phar, title, etc.
     """
     timeStart = time.time()
+    search = search.replace('%20', ' ')
+
+    def loading():
+        """
+        Loading messages to keep the user kinda entertained.
+        """
+        elapsed = round(int(time.time() - timeStart))
+        boredtext = ["Did you know? By clicking start song, you can choose a song to play?", "You can ask Remora FAQs!","If you ever get bored, open a new tab and try to find all our hidden easter eggs!"]
+        fintext = random.choice(boredtext)
+        return f"""
+            <html>
+            <body>
+            <h1>Searching for {search}</h1>
+            <h2>Time: {elapsed}</h2>
+            <hr>
+            <h2>{fintext}</h2>
+            </body>
+            </html>
+            """
     file = open("system/knownsites.txt", "r")
     timesDone = 0
-    titles = []
     links = []
-    scores = []
     previews = []
     searchishere = False
-    for line in file:
-        if search in line:
-            url, data = line.split(",", 1)
-            links.append(line.split(",", 1)[0])
-            html = requests.get(line.split(",", 1)[0]).text
-            score = dict(ast.literal_eval(data)).get(search.lower(), 0)
-            soup = BeautifulSoup(html, "lxml")
-            phar = soup.find_all("p")
-            txt = "\n".join(p.get_text() for p in phar)
-            words = txt.split()
-            preview = " ".join(words[:10])
-            if len(words) > 80:
-                preview += "..."
-            previews.append(preview)
-            if soup.title and soup.title.string:
-                title = soup.title.string
-            else:
-                title = urlparse(url).netloc.replace("www.", "")
-            titles.append(title)
-            scores.append(score)
-            timesDone += 1
+    load.load_html(loading())
+    def wfSearchResults(line):
+        """
+        Turned this part into a func,
+        so that I can use threading on it hehe.
+        """
+        urldatasplit = time.time()
+        url, data = line.split(",", 1)
+
+        if settings["devopts"] == "True":
+            print("url data split: ", time.time() - urldatasplit)
+
+        downloading = time.time()
+        links.append(line.split(",", 1)[0])
+        html = requests.get(line.split(",", 1)[0]).text
+        score = dict(ast.literal_eval(data)).get(search.lower(), 0)
+        if settings["devopts"] == "True":
+            print("downloads: ", time.time() - downloading)
+        makingpreview = time.time()
+        soup = BeautifulSoup(html, "lxml")
+        text = soup.get_text(" ", strip=True)
+        preview = text[:30]
+        if len(text) > 30:
+            preview += "..."
+        else:
+            pass
+        if settings["devopts"] == "True":
+            print("preview: ", time.time() - makingpreview)
+        previews.append(preview)
+        makingtitle = time.time()
+        if soup.title and soup.title.string:
+            title = soup.title.string
+        else:
+            title = urlparse(url).netloc.replace("www.", "")
+        if settings["devopts"] == "True":
+            print("title:", time.time() - makingtitle)
+        return url, title, score, preview
+
+    results = []
+
+    with ThreadPoolExecutor(max_workers=35) as executor:
+        futures = []
+        for line in file:  # Checks every line in knownsites
+            if search.lower() in line.lower():
+                """
+                Then the ones which match the search ya, gets downloaded and stuff, 
+                this also kinda means that the user's search has to be the exact same as to any top ten words in any url 
+                thats in the knwosites which makes it kind dumb but ehh
+                """
+                futures.append(executor.submit(wfSearchResults, line))
+        if not futures:
+            searchishere = False
+        else:
             searchishere = True
+        for completedf in as_completed(futures):
+            results.append(completedf.result())
+            timesDone += 1
+            load.load_html(loading())
+
     timeEnd = time.time()
     timeElapsed = timeEnd - timeStart
 
-    combined = list(zip(links, titles, scores, previews))
+    combined = results
     combined.sort(key=lambda x: x[2], reverse=True)
-    if not searchishere:
+    if not searchishere: # Checks if user's search matches any url in knownsites.txt
         waterFishSearchOut = f"""
         <html>
         <head>
@@ -92,11 +149,12 @@ def clientSTART(search, load):
     <h1>Wf-Search query: {search}</h1> <br>
     <h6>Loaded {str(timesDone)} results in {str(round(timeElapsed))} seconds.</h6>
     """
-
-    for link, title, score, preview in combined:
-        waterFishSearchOut += "<hr>"
-        waterFishSearchOut += f'<a href="{link}">{title}</a><br>'
-        waterFishSearchOut += f'<a style = "color: black" href="{link}">{preview}</a><br>'
+    for i in range(0, len(results), 10):
+        batch = results[i:i + 10]
+        for link, title, score, preview in batch:
+            waterFishSearchOut += "<hr>"
+            waterFishSearchOut += f'<a href="{link}">{title}</a><br>'
+            waterFishSearchOut += f'<a style = "color: black" href="{link}">{preview}</a><br>'
 
     waterFishSearchOut += """
     </body>
