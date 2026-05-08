@@ -40,6 +40,9 @@ def clientSTART(search, load, settings):
         fintext = random.choice(boredtext)
         return f"""
             <html>
+            <head>
+            <title>Searching for {search}</title>
+            </head>
             <body>
             <h1>Searching for {search}</h1>
             <h2>Time: {elapsed}</h2>
