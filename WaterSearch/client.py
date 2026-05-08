@@ -36,7 +36,7 @@ def clientSTART(search, load, settings):
         Loading messages to keep the user kinda entertained.
         """
         elapsed = round(int(time.time() - timeStart))
-        boredtext = ["Did you know? By clicking start song, you can choose a song to play?", "You can ask Remora FAQs!","If you ever get bored, open a new tab and try to find all our hidden easter eggs!"]
+        boredtext = ['Did you know? By clicking start song, you can choose a song to play?', 'You can ask Remora FAQs!','If you ever get bored, open a new tab and try to find all our hidden easter eggs!', 'The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?']
         fintext = random.choice(boredtext)
         return f"""
             <html>
@@ -160,6 +160,8 @@ def clientSTART(search, load, settings):
             waterFishSearchOut += f'<a style = "color: black" href="{link}">{preview}</a><br>'
 
     waterFishSearchOut += """
+    <hr>
+    <h5>Sorry, that's all I seem to know... Crawl more to make me smarter!</h5>
     </body>
     </html>
     """
