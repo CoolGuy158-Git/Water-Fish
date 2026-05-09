@@ -16,11 +16,9 @@ from bs4 import XMLParsedAsHTMLWarning
 import time
 import ast
 from urllib.parse import urlparse
-import requests_cache
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
-requests_cache.install_cache('wfSearchClientTemps', expire_after=3600)
 def clientSTART(search, load, settings):
     """
     Very, very slow, goes through each line of knownsites,
