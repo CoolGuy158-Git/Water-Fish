@@ -74,6 +74,7 @@ Water-Fish/
 │   ├── runcustmod.py
 │   ├── overview.py
 │   ├── offgame.py
+│   ├── StatusChecker.py
 ```
 
 **Starting update 3.0 most new features would be added on to wfmodules as main.py file is getting too big and messy**
