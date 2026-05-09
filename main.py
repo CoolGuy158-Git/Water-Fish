@@ -30,6 +30,7 @@ import tkinterdnd2 as tkd # Used this for root so that drag and drop can be used
 from wfmodules.runcustmod import runCust
 from wfmodules.offgame import error_internet
 from WaterSearch.client import clientSTART
+from wfmodules.StatusChecker import CheckWebsiteStatus
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -55,7 +56,7 @@ else:
 root.geometry("1000x700")
 root.title("Water Fish")
 root.iconbitmap("images/waterfish.ico")
-textchoice = ['The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
+textchoice = ['Did you know? By clicking start song, you can choose a song to play?', 'You can ask Remora FAQs!','If you ever get bored, open a new tab and try to find all our hidden easter eggs!', 'The buggiest browser ever.', 'Is this even a browser?', '"I will feed you Ai." -Not my browser', 'Why are you using ts?', 'Magnificant browser', 'Slightly better than IE!', 'Fun fact this browser was made by a 13 yo!', 'Is using tkinterweb cheating?'] # Comment on my yt channel what other text I should add!
 def homepage():
     favorites = []
     with open("system/favorites.txt", "r") as f: # Yup NO MORE HARD CODING!!!
@@ -218,6 +219,12 @@ startsng.pack(side="left")
 
 endsong = tk.Button(menubar, text="End Sng", command=lambda: stopsng())
 endsong.pack(side="left")
+
+if data["devopts"] == "True":
+    Status = tk.Button(menubar, text="Status", command=lambda: CheckWebsiteStatus(root))
+    Status.pack(side="left")
+else:
+    pass
 
 searchtab = tk.Frame(colorthing, width=1000, height=100, bg=data['color'])
 searchtab.pack(pady=20)
@@ -386,6 +393,5 @@ if data["custmodBETA"] == "True":
     root.after(3000, lambda: runCust(data, root, currentframe, menubar))
 if data["devopts"] == "True":
     root.bind("<Button-2>", lambda event: pageOverview(currentframe, urlgoesbrr, root, search))
+
 root.mainloop()
-
-
