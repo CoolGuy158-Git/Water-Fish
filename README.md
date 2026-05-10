@@ -75,6 +75,7 @@ Water-Fish/
 │   ├── overview.py
 │   ├── offgame.py
 │   ├── StatusChecker.py
+│   ├── knotmeter.py
 ```
 
 **Starting update 3.0 most new features would be added on to wfmodules as main.py file is getting too big and messy**

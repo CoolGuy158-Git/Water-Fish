@@ -31,6 +31,7 @@ from wfmodules.runcustmod import runCust
 from wfmodules.offgame import error_internet
 from WaterSearch.client import clientSTART
 from wfmodules.StatusChecker import CheckWebsiteStatus
+from wfmodules.knotmeter import knots
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -198,6 +199,21 @@ def forward():
             currentframe.load_website(lines[i + 1])
             return
 
+def knotsReplacetext(): # So that user actually knows something is going on
+    def checkKnotty():
+        if knotty.is_alive():
+            root.after(100, checkKnotty)
+        else:
+            knot.config(text='knotmeter', state="normal")
+    if currentframe.title not in ["Homepage", "Knotmeter", "Loading"]:
+        newtab()
+    currentframe.load_html(homepage())
+    knot.config(text='Checking...', state="disabled")
+    knotty = threading.Thread(target=knots, args=(currentframe, data), daemon=True)
+    knotty.start()
+
+    checkKnotty()
+
 menubar = tk.Frame(root, width=1000, height=70,bg='darkgray')
 menubar.pack(fill="x")
 
@@ -219,6 +235,9 @@ startsng.pack(side="left")
 
 endsong = tk.Button(menubar, text="End Sng", command=lambda: stopsng())
 endsong.pack(side="left")
+
+knot = tk.Button(menubar, text="knotmeter", command=lambda:knotsReplacetext())
+knot.pack(side="left")
 
 if data["devopts"] == "True":
     Status = tk.Button(menubar, text="Status", command=lambda: CheckWebsiteStatus(root))
