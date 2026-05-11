@@ -32,6 +32,7 @@ from wfmodules.offgame import error_internet
 from WaterSearch.client import clientSTART
 from wfmodules.StatusChecker import CheckWebsiteStatus
 from wfmodules.knotmeter import knots
+from wfmodules.wfGet import checkLink
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -349,6 +350,7 @@ def loadnoworelse(url): # hehe now I can throw error at your face
 
         loadcount = 999
         currentframe.load_website(url)
+        checkLink(currentframe)
     except Exception as e:
         currentframe.load_html(error_generic)
         log(e, logtype='error')
@@ -412,5 +414,4 @@ if data["custmodBETA"] == "True":
     root.after(3000, lambda: runCust(data, root, currentframe, menubar))
 if data["devopts"] == "True":
     root.bind("<Button-2>", lambda event: pageOverview(currentframe, urlgoesbrr, root, search))
-
 root.mainloop()
