@@ -15,7 +15,7 @@ import os
 
 
 
-def checkLink(currentframe):
+def checkLink(currentframe, url, data):
     """
     This function checks if the link is binary or nah.
     It does it by defining 2 extensions types.
@@ -23,9 +23,17 @@ def checkLink(currentframe):
     Binary (binary obviously)
     Then it calls the download func for either just download or download binary.
     """
-    url = currentframe.current_url
-    print(url)
+    if data["devopts"] == "True":
+        print("wfget sees: ", url)
+    path = urlparse(url).path.lower()
+    if path.endswith("/"):
+        path = path[:-1]
 
+    filename = path.split("/")[-1]
+    if "." not in filename:
+        if data["devopts"] == "True":
+            print(f" {url} isn't a download link.")
+        return
     fileExtensions = [
     ".html",
     ".htm",
@@ -98,6 +106,8 @@ def checkLink(currentframe):
 
 
     if any(url.endswith(ext) for ext in fileExtensions):
+        if data["devopts"] == "True":
+            print(f" {url} is a download link.")
         fileName = urlparse(url).path.split("/")[-1]
         rrr = requests.get(url, stream=True)
         size = rrr.headers.get("Content-Length")
@@ -123,7 +133,10 @@ def checkLink(currentframe):
                     </html>
                     """
             )
+        return
     if any(url.endswith(ext) for ext in BinaryFileExtensions):
+        if data["devopts"] == "True":
+            print(f" {url} isn a download link.")
         fileName = urlparse(url).path.split("/")[-1]
         rrr = requests.get(url, stream=True)
         size = rrr.headers.get("Content-Length")
@@ -149,9 +162,10 @@ def checkLink(currentframe):
                         </html>
                         """
                 )
-
-        else:
-            pass
+        return
+    if data["devopts"] == "True":
+        print(f" {url} isn't a download link.")
+    return
 
 def Download(fileName,currentframe, text):
         folderToSave = filedialog.askdirectory()
