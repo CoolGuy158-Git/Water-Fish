@@ -350,7 +350,7 @@ def loadnoworelse(url): # hehe now I can throw error at your face
 
         loadcount = 999
         currentframe.load_website(url)
-        checkLink(currentframe)
+        checkLink(currentframe, url, data)
     except Exception as e:
         currentframe.load_html(error_generic)
         log(e, logtype='error')
