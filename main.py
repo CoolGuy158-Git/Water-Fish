@@ -33,6 +33,7 @@ from WaterSearch.client import clientSTART
 from wfmodules.StatusChecker import CheckWebsiteStatus
 from wfmodules.knotmeter import knots
 from wfmodules.wfGet import checkLink
+from wfmodules.wfsupport import checkGUI
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -236,6 +237,9 @@ startsng.pack(side="left")
 
 endsong = tk.Button(menubar, text="End Sng", command=lambda: stopsng())
 endsong.pack(side="left")
+
+support = tk.Button(menubar, text="Supported Sites", command=lambda: checkGUI(root))
+support.pack(side="left")
 
 knot = tk.Button(menubar, text="knotmeter", command=lambda:knotsReplacetext())
 knot.pack(side="left")
