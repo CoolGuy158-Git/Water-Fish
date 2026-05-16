@@ -34,6 +34,7 @@ from wfmodules.StatusChecker import CheckWebsiteStatus
 from wfmodules.knotmeter import knots
 from wfmodules.wfGet import checkLink
 from wfmodules.wfsupport import checkGUI
+from wfmodules.wfsafemode import safemode
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -355,6 +356,9 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         loadcount = 999
         currentframe.load_website(url)
         checkLink(currentframe, url, data)
+        if data["safemode"] == "True":
+            safemode(url, currentframe)
+
     except Exception as e:
         currentframe.load_html(error_generic)
         log(e, logtype='error')
