@@ -7,3 +7,4 @@ startup = True
 remora = True
 custmodBETA = False
 wfsearch = False
+safemode = True
