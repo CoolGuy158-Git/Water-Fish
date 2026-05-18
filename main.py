@@ -35,6 +35,7 @@ from wfmodules.knotmeter import knots
 from wfmodules.wfGet import checkLink
 from wfmodules.wfsupport import checkGUI
 from wfmodules.wfsafemode import safemode
+from wfmodules.wfsusdetector import check
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -333,6 +334,11 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         global loadcount
         global urlgoesbrr
         url = url.strip()
+        safety = check(url, data)
+        if safety.startswith("F"):
+            if not messagebox.askokcancel("WARNING", f"This site is {safety} by Water-Fish! It could be a joke site, it could be a really bad one, who knows? Be safe out there...\n\n press cancel to return to homepage."):
+                currentframe.load_html(homepage())
+                return
         wfmodules.secrets.checkurl(url, currentframe)
         urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage, data)
         if not url.startswith(("http://", "https://")):
@@ -358,7 +364,6 @@ def loadnoworelse(url): # hehe now I can throw error at your face
         checkLink(currentframe, url, data)
         if data["safemode"] == "True":
             safemode(url, currentframe)
-
     except Exception as e:
         currentframe.load_html(error_generic)
         log(e, logtype='error')
