@@ -66,7 +66,7 @@ def check(url, data):
                 print("percent: " + str(percent) + "%")
 
         for percentagesThatViolateTheRulesOfTheGreatPondOfTheWaterFish in percentages: # Beutiful name indeed
-            if percentagesThatViolateTheRulesOfTheGreatPondOfTheWaterFish > 50:
+            if percentagesThatViolateTheRulesOfTheGreatPondOfTheWaterFish > 50 and not percentagesThatViolateTheRulesOfTheGreatPondOfTheWaterFish == 100: # Just realized that if the thing is 100% then that means that it is the real site LOLOLOLOL
                 flags.append("1")
                 if data["devopts"] == "True":
                     print("Flagged first time due to: " + str(percentagesThatViolateTheRulesOfTheGreatPondOfTheWaterFish) + "%")

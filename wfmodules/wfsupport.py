@@ -11,8 +11,8 @@ Well it has three category
 - Unsupported (Sites may not load, these are for sites that contain js.)
 
 It works by getting the file of a site using requests, it then checks if any file that ends with .js exists then classifies it unsupported.
-Then it checks CSS and if a css file is found classifies as can load.
 Then checks HTML to find if there's any <script> tag, if so unsupported.
+Then it checks CSS and if a css file is found classifies as can load.
 Then checks HTML again to find if any <style> (inline not counted) tag, if so counts how many lines it takes up.
 
 It's pretty simple, and isn't perfect, but it usually works well.
@@ -36,11 +36,17 @@ def check(url):
     styletext = ""
     WfSupportVar = "supported" # Just do supported first, then overwrite if other conditions are meet.
     reason = "doesn't use css, or js."
-    if "google-analytics" in dahtml or "gtag" in dahtml or "analytics" in dahtml or "cloudflareinsights" in dahtml: # Overwrite reason
+    if ("google-analytics" in dahtml or "gtag" in dahtml or "analytics" in dahtml or "cloudflareinsights" in dahtml) and not "<script" in dahtml: # Overwrite reason
         WfSupportVar = "supported"
         reason = "Js usage is only in analytics"
+    elif "<script" in dahtml: # Then unsupported.
+        WfSupportVar = "unsupported"
+        reason = "uses javascript"
 
-    elif "<style" in dahtml: # Do can load first
+    elif "<link" in dahtml:
+        WfSupportVar = "can load"
+        reason = "most likely uses css"
+    elif "<style" in dahtml: # Then can load last.
         styles = soup.find_all("style")
         for style in styles:
             styletext += style.get_text() + "\n"
@@ -50,15 +56,8 @@ def check(url):
         else:
             WfSupportVar = "supported"
             reason = "Only a little css is used, js is not used."
-    elif "<link" in dahtml:
-        WfSupportVar = "can load"
-        reason = "most likely uses css"
-
-    elif "<script" in dahtml: # Then unsupported, cuz unsupported is more concerning than can load lol.
-        WfSupportVar = "unsupported"
-        reason = "uses javascript"
-    return "Support: " + WfSupportVar + "\nReason: " + reason + "\n" + "If you want to check it yourself here's the HTML: " + "\n" + "\n" + html.escape(dahtml)
-
+    return "Support: " + WfSupportVar + "\nReason: " + reason + "\n" + "If you want to check it yourself here's the HTML: " + "\n" + "\n" + html.escape(
+        dahtml)
 
 def checkGUI(root):
     def getURL():
