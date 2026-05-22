@@ -44,8 +44,6 @@ This means we are trying to find contributors who understand or are willing to l
 ## TODO
 
 ### Easy
-- [ ] Improve UI (Make it feel modern without removing the blue charm)
-- [ ] Improve Error pages
 - [ ] Add useful comments (Do not delete existing ones)
 - [ ] Add more Easter eggs
 - [ ] Add more useful commands
