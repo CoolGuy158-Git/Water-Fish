@@ -36,6 +36,7 @@ from wfmodules.wfGet import checkLink
 from wfmodules.wfsupport import checkGUI
 from wfmodules.wfsafemode import safemode
 from wfmodules.wfsusdetector import check
+from wfmodules.htmlEditor import Editor
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -245,6 +246,9 @@ support.pack(side="left")
 
 knot = tk.Button(menubar, text="knotmeter", command=lambda:knotsReplacetext())
 knot.pack(side="left")
+
+editor = tk.Button(menubar, text="Editor", command=lambda: Editor(root, currentframe))
+editor.pack(side="left")
 
 if data["devopts"] == "True":
     Status = tk.Button(menubar, text="Status", command=lambda: CheckWebsiteStatus(root))
