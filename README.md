@@ -83,3 +83,5 @@ Water-Fish/
 **Starting update 3.0 most new features would be added on to wfmodules as main.py file is getting too big and messy**
 
 **Currently, Water-Fish is just a GUI wrapper around tkinterweb, that may change someday with [inksquid](InkSquid.md)**
+
+**If you want to donate: https://coolguy158.itch.io/water-fish**
