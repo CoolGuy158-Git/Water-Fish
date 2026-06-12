@@ -37,6 +37,7 @@ from wfmodules.wfsupport import checkGUI
 from wfmodules.wfsafemode import safemode
 from wfmodules.wfsusdetector import check
 from wfmodules.htmlEditor import Editor
+from wfmodules.locationDetector import getLoc
 data = {}
 try:
     with open('system/settings.txt', 'r') as file: # Yes it's a txt, why? idk
@@ -391,8 +392,12 @@ def searchfor(urlthing=None):
     else:
         query = urllib.parse.quote(raw)
         if data["wfsearch"] != "True":
-            url = f"https://wiby.me/?q={query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
-            load(url)
+            if data["location"] == "True":
+                url = f"https://wiby.me/?q={getLoc(data)} +{query}" # Originally I wanted to use Duckduckgo but since this browser is dumb, it needed the og web so yea we lab wiby
+                load(url)
+            else:
+                url = f"https://wiby.me/?q={query}"
+                load(url)
         if data["wfsearch"] == "True":
             threading.Thread(target=lambda: clientSTART(query, currentframe, data), daemon=True).start()
 
