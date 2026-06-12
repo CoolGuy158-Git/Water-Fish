@@ -8,3 +8,4 @@ remora = True
 custmodBETA = False
 wfsearch = False
 safemode = True
+location = False
