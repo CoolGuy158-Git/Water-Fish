@@ -344,7 +344,9 @@ def loadnoworelse(url): # hehe now I can throw error at your face
             if not messagebox.askokcancel("WARNING", f"This site is {safety} by Water-Fish! It could be a joke site, it could be a really bad one, who knows? Be safe out there...\n\n press cancel to return to homepage."):
                 currentframe.load_html(homepage())
                 return
-        wfmodules.secrets.checkurl(url, currentframe)
+        wfmodules.secrets.checkurl(url, currentframe, data, homepage)
+        if wfmodules.secrets.checkurl(url, currentframe, data, homepage):
+            return
         urlcheck(url, root, colorthing, searchtab, tabbar, currentframe, homepage, data)
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
